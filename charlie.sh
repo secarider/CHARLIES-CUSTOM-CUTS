@@ -39,10 +39,25 @@ pause() {
 # =========================
 ask_yes_no() {
     local prompt="$1"
-    echo -ne "${YELLOW}${prompt}${NC}"
+    local ans
+
+    echo -e "${YELLOW}${prompt}${NC}"
     read -r ans
+
     ans="${ans,,}"
-    [[ "$ans" == y* ]]
+    ans="${ans//[[:space:]]/}"
+
+    case "${ans:-2}" in
+        y|yes|1)
+            return 0
+            ;;
+        n|no|2|"")
+            return 1
+            ;;
+        *)
+            return 1
+            ;;
+    esac
 }
 
 # =========================
