@@ -1,3 +1,4 @@
+![Archies-Archival-Array_Logo](charlie.png)
 CHARLIE'S CUSTOM CUTS
 
 CUT BITS AND PIECES
