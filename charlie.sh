@@ -63,7 +63,7 @@ ask_yes_no() {
 # =========================
 # HELPER: EXIT TOKEN
 # =========================
-is_factory_exit_token() {
+is_charlie_exit_token() {
     [[ "$1" == "0" || "$1" == "q" ]]
 }
 
@@ -186,8 +186,8 @@ run_custom_cut() {
 
     mkdir -p _cut_tmp
 
-    run_with_progress "Cutting..." \
-    ffmpeg -y -i "$src" \
+run_with_progress "Cutting..." \
+    ffmpeg -hide_banner -loglevel warning -stats -y -i "$src" \
         -vf "trim=start=${start}:duration=${dur},setpts=PTS-STARTPTS" \
         -af "atrim=start=${start}:duration=${dur},asetpts=PTS-STARTPTS" \
         -c:v libx264 -crf 18 -preset veryfast \
@@ -234,8 +234,8 @@ run_join_two_clips() {
     printf "file '%s/%s'\n" "$(pwd)" "$p1" > _join_tmp/list.txt
     printf "file '%s/%s'\n" "$(pwd)" "$p2" >> _join_tmp/list.txt
 
-    run_with_progress "Joining..." \
-    ffmpeg -f concat -safe 0 -i _join_tmp/list.txt -c copy "$out" -y
+run_with_progress "Joining..." \
+    ffmpeg -hide_banner -f concat -safe 0 -i _join_tmp/list.txt -c copy "$out" -y
 
     rm -rf _join_tmp
 
